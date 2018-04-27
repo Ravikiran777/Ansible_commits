@@ -1,5 +1,25 @@
 ---
 - hosts: localhost
+  become: yes
   tasks:
   
-  - debug: msg=test_from_jenkins
+  - debug: msg="{{username}}"
+  - debug: msg="{{password}}"
+  
+  - name: Docker login
+    expect:
+     command: "docker login"
+     responses:
+      Username: "{{username}}"
+      Password: "{{password}}"
+     
+  - name: Push docker image
+    docker_image:
+      name: "{{image}}"
+      push: yes
+      
+- hosts: "{{node}}"
+  tasks:
+  
+  - name: Pull docker image 
+    command: "docker pull {{username_target}}/{{image_pull}}"
