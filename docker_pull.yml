@@ -1,0 +1,6 @@
+---
+- hosts: "{{node}}"
+  tasks:
+  
+  - name: Pull docker image 
+    command: "docker pull {{username_target}}/{{image_pull}}"

@@ -1,6 +1,5 @@
 ---
 - hosts: localhost
-  become: yes
   tasks:
   
   - debug: msg="{{username}}"
@@ -12,16 +11,9 @@
      responses:
       Username: "{{username}}"
       Password: "{{password}}"
-     
+       
   - name: Push docker image
     docker_image:
       name: "{{image}}"
       push: yes
-      
-- hosts: "{{node}}"
-  tasks:
-  
-  - name: Pull docker image 
-    command: "docker pull {{username_target}}/{{image_pull}}"
 
-### ansible-playbook /home/ubuntu/main.yml --extra-vars "node=IP"
