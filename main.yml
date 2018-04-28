@@ -16,4 +16,4 @@
     docker_image:
       name: "{{image}}"
       push: yes
-#
+
